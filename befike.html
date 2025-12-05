@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Befikir Eyassu - Soccer Player</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    .full-width-wrapper {
+      width: 100%;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    }
+
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(10, 10, 10, 0.95);
+      padding: 1.2rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #1a8f4d;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1a8f4d, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #1a8f4d;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(26, 143, 77, 0.1) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-image-container {
+      width: 280px;
+      height: 280px;
+      margin: 0 auto 2.5rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(26, 143, 77, 0.3), 0 0 0 3px #1a8f4d;
+      background: linear-gradient(135deg, #1a8f4d, #0d5a30);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin: 0 0 1rem;
+      background: linear-gradient(135deg, #ffffff, #1a8f4d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -2px;
+    }
+
+    .hero-tagline {
+      font-size: 1.5rem;
+      color: #d4af37;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #1a8f4d, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      color: #cccccc;
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+
+    /* About Section */
+    #about {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0f3320 50%, #1a1a1a 100%);
+      border-radius: 30px;
+      margin: 2rem auto;
+      padding: 5rem 3rem;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .achievements-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .achievements-list li {
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      background: rgba(26, 143, 77, 0.1);
+      border-left: 4px solid #1a8f4d;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .achievements-list li:hover {
+      background: rgba(26, 143, 77, 0.2);
+      transform: translateX(10px);
+    }
+
+    .achievements-list li::before {
+      content: '🏆';
+      margin-right: 0.8rem;
+    }
+
+    /* Career Highlights */
+    #highlights {
+      background: #0a0a0a;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .highlight-card {
+      background: linear-gradient(135deg, #1a1a1a, #0f3320);
+      padding: 2.5rem;
+      border-radius: 20px;
+      text-align: center;
+      border: 2px solid rgba(26, 143, 77, 0.3);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-10px);
+      border-color: #1a8f4d;
+      box-shadow: 0 20px 40px rgba(26, 143, 77, 0.3);
+    }
+
+    .highlight-card:hover::before {
+      opacity: 1;
+    }
+
+    .highlight-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .highlight-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1a8f4d;
+      margin-bottom: 0.8rem;
+    }
+
+    .highlight-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-description {
+      color: #cccccc;
+      font-size: 0.95rem;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: linear-gradient(135deg, #0f3320 0%, #1a1a1a 100%);
+      border-radius: 30px;
+      margin: 2rem auto;
+      padding: 5rem 3rem;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .social-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.2rem 2.5rem;
+      background: #1a8f4d;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .social-button:hover {
+      background: #0d5a30;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(26, 143, 77, 0.4);
+      border-color: #d4af37;
+    }
+
+    .social-icon {
+      font-size: 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      padding: 2rem;
+      text-align: center;
+      color: #888888;
+      border-top: 2px solid #1a8f4d;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-tagline {
+        font-size: 1.1rem;
+      }
+
+      .hero-image-container {
+        width: 220px;
+        height: 220px;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      .highlights-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .social-button {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="full-width-wrapper"><!-- Navigation -->
+   <nav>
+    <div class="nav-content">
+     <div class="nav-logo">
+      BE
+     </div>
+     <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#highlights">Highlights</a></li>
+      <li><a href="#contact">Contact</a></li>
+     </ul>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="hero">
+    <div class="hero-content">
+     <div class="hero-image-container"><img src="https://i.imgur.com/0ykQzST.jpeg" alt="Befikir Eyassu" onerror="this.style.display='none'; this.parentElement.innerHTML='⚽'; this.parentElement.style.fontSize='8rem'; this.parentElement.style.opacity='0.2';">
+     </div>
+     <h1 id="player-name">Befikir Eyassu</h1>
+     <p class="hero-tagline" id="tagline">Passion. Dedication. Soccer.</p>
+    </div>
+   </section><!-- About Section -->
+   <section id="about">
+    <h2 class="section-title" id="about-title">About Me</h2>
+    <div class="about-content">
+     <div>
+      <p class="about-text" id="about-text">From the moment I first kicked a soccer ball, I knew this was my calling. My journey in soccer has been one of relentless dedication, continuous growth, and unwavering passion for the beautiful game. Every match, every training session, and every challenge has shaped me into the player I am today.</p>
+      <p class="about-text">Soccer is more than just a sport to me—it's a way of life. It has taught me discipline, teamwork, resilience, and the importance of never giving up on your dreams. I believe in pushing boundaries and constantly striving to improve both on and off the field.</p>
+     </div>
+     <div>
+      <h3 style="color: #d4af37; font-size: 1.5rem; margin-bottom: 1.5rem;">Key Achievements</h3>
+      <ul class="achievements-list">
+       <li>Multiple championship titles</li>
+       <li>Top scorer in regional leagues</li>
+       <li>Team captain leadership</li>
+       <li>Youth development mentor</li>
+       <li>Community soccer advocate</li>
+      </ul>
+     </div>
+    </div>
+   </section><!-- Career Highlights -->
+   <section id="highlights">
+    <h2 class="section-title">Career Highlights</h2>
+    <p class="section-subtitle">A snapshot of my soccer journey and achievements</p>
+    <div class="highlights-grid">
+     <div class="highlight-card">
+      <div class="highlight-icon">
+       ⚽
+      </div>
+      <div class="highlight-title">
+       Goals Scored
+      </div>
+      <div class="highlight-value">
+       127+
+      </div>
+      <p class="highlight-description">Career goals across all competitions</p>
+     </div>
+     <div class="highlight-card">
+      <div class="highlight-icon">
+       🏆
+      </div>
+      <div class="highlight-title">
+       Championships
+      </div>
+      <div class="highlight-value">
+       8
+      </div>
+      <p class="highlight-description">League and tournament victories</p>
+     </div>
+     <div class="highlight-card">
+      <div class="highlight-icon">
+       👕
+      </div>
+      <div class="highlight-title">
+       Matches Played
+      </div>
+      <div class="highlight-value">
+       200+
+      </div>
+      <p class="highlight-description">Professional and competitive matches</p>
+     </div>
+     <div class="highlight-card">
+      <div class="highlight-icon">
+       🎯
+      </div>
+      <div class="highlight-title">
+       Assists
+      </div>
+      <div class="highlight-value">
+       85+
+      </div>
+      <p class="highlight-description">Creating opportunities for teammates</p>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact">
+    <h2 class="section-title" id="contact-title">Get In Touch</h2>
+    <p class="section-subtitle" id="contact-subtitle">Connect with me on social media or reach out for collaborations</p>
+    <div class="social-links"><a href="https://snapchat.com" target="_blank" rel="noopener noreferrer" class="social-button"> <span class="social-icon">👻</span> <span>Snapchat</span> </a> <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-button"> <span class="social-icon">📷</span> <span>Instagram</span> </a>
+    </div>
+   </section><!-- Footer -->
+   <footer>
+    <p>© 2026 Befikir Eyassu. All rights reserved. Built with passion for the game.</p>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      player_name: "Befikir Eyassu",
+      tagline: "Passion. Dedication. Soccer.",
+      about_title: "About Me",
+      about_text: "From the moment I first kicked a soccer ball, I knew this was my calling. My journey in soccer has been one of relentless dedication, continuous growth, and unwavering passion for the beautiful game. Every match, every training session, and every challenge has shaped me into the player I am today.",
+      contact_title: "Get In Touch",
+      contact_subtitle: "Connect with me on social media or reach out for collaborations",
+      background_color: "#0a0a0a",
+      primary_color: "#1a8f4d",
+      accent_color: "#d4af37",
+      text_color: "#ffffff",
+      surface_color: "#1a1a1a",
+      font_family: "Inter",
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      const playerName = config.player_name || defaultConfig.player_name;
+      const tagline = config.tagline || defaultConfig.tagline;
+      const aboutTitle = config.about_title || defaultConfig.about_title;
+      const aboutText = config.about_text || defaultConfig.about_text;
+      const contactTitle = config.contact_title || defaultConfig.contact_title;
+      const contactSubtitle = config.contact_subtitle || defaultConfig.contact_subtitle;
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const fontSize = config.font_size || defaultConfig.font_size;
+
+      document.getElementById('player-name').textContent = playerName;
+      document.getElementById('tagline').textContent = tagline;
+      document.getElementById('about-title').textContent = aboutTitle;
+      document.getElementById('about-text').textContent = aboutText;
+      document.getElementById('contact-title').textContent = contactTitle;
+      document.getElementById('contact-subtitle').textContent = contactSubtitle;
+
+      document.body.style.background = backgroundColor;
+      document.body.style.color = textColor;
+      document.querySelector('.full-width-wrapper').style.background = `linear-gradient(135deg, ${backgroundColor} 0%, ${surfaceColor} 100%)`;
+
+      const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      document.body.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+      document.body.style.fontSize = `${fontSize}px`;
+
+      document.querySelector('.hero h1').style.fontSize = `${fontSize * 2.5}px`;
+      document.querySelector('.hero-tagline').style.fontSize = `${fontSize * 0.9375}px`;
+      document.querySelector('.section-title').style.fontSize = `${fontSize * 1.5625}px`;
+
+      const navLinks = document.querySelectorAll('.nav-links a');
+      navLinks.forEach(link => {
+        link.style.color = textColor;
+      });
+
+      const highlightCards = document.querySelectorAll('.highlight-card');
+      highlightCards.forEach(card => {
+        card.style.background = `linear-gradient(135deg, ${surfaceColor}, ${backgroundColor})`;
+        card.style.borderColor = `${primaryColor}55`;
+      });
+
+      const socialButtons = document.querySelectorAll('.social-button');
+      socialButtons.forEach(button => {
+        button.style.background = primaryColor;
+      });
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              window.elementSdk.setConfig({ accent_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["player_name", config.player_name || defaultConfig.player_name],
+        ["tagline", config.tagline || defaultConfig.tagline],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["about_text", config.about_text || defaultConfig.about_text],
+        ["contact_title", config.contact_title || defaultConfig.contact_title],
+        ["contact_subtitle", config.contact_subtitle || defaultConfig.contact_subtitle]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a90b0db54f301de',t:'MTc2NDkwNzc5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
